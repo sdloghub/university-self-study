@@ -1,0 +1,6 @@
+# PDF probing helpers
+pymupdf>=1.24
+pypdf>=4.2
+
+# Optional local OCR fallback; Codex/ChatGPT vision does not need this package
+paddleocr>=3.7.0
