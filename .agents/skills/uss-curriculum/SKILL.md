@@ -1,34 +1,14 @@
 ---
 name: uss-curriculum
-description: Extract selected university curriculum requirements and align a user-selected course by code with syllabi, textbooks and comparable university courses. Use within the uss study workflow before drafting a composite course outline.
+description: Compare degree requirements across university programs, or retrieve a named course syllabus and select its primary required textbook by teaching-calendar fit. Use the separate program and course workflows in uss.
 ---
 
-# 培养方案与课程对齐
+# 专业与课程要求
 
-先读 uss 的 AGENTS.md 和培养方向配置.md，再读已有资料索引、进度、课程要求。当前任务由用户指定；先完成目标课程，不扩展到全部专业教材下载。
+先读 uss AGENTS.md、培养方向配置与已有进度。专业任务读 [专业 workflow](references/program-workflow.md)，课程任务读 [课程 workflow](references/course-workflow.md)，不因课程查询自动重新提取全部专业方案。
 
-## 培养方案与 syllabus
+已取得原件和版本记录是依据；网页更新时间不能证明适用年级。保留 URL、本地快照、哈希、物理页码、学校、代码、学年/修订版、获取时间和核对状态。缺失字段注明来源未给出，冲突保留来源，不用猜测填表。
 
-提取 2026 方案限定专业和通识必修的原始字段与页码。正式专业名与用户名称建立映射，找不到的专业记录缺口，不用相似专业代替。区分培养目标、毕业要求和课程学习成果；课程组最低学分、互斥/替代课程与适用年级必须保留。
+资料提取转 [uss-ingestion](../uss-ingestion/SKILL.md)，每本教材逐章笔记转 [uss-textbook-notes](../uss-textbook-notes/SKILL.md)，来源索引转 [uss-source-index](../uss-source-index/SKILL.md)。生成与翻译仅在相应可选模式开启后转 uss-notes、uss-assessment 或 uss-textbook-translate。
 
-按方案代码检索 https://mirrors.sustech.edu.cn/courses/syllabus/ ，检查实际列表中的 PDF 和 html 版本，不仅猜测 URL。代码、名称与文件内部信息一起核对；-14/-15 等后缀不自行解读为当前学年。镜像无匹配时找院系官方来源，仍无匹配则记录。保存实际取得的 syllabus 快照和哈希；来源时间与适用学期分开。读取全文中课程目标、先修、教学内容/周次、教学方式、考核比例、必读及参考教材；缺失字段写“来源未给出”。
-
-## 教材与账号
-
-保存书名、作者、版次、语言、ISBN（有则记录）、必读/参考角色及来源页。优先作者/出版社开放版本、大学课程材料、图书馆许可资源。可在用户指定 https://z-lib.sk/ 检索书目，但不能仅凭网站上出现就断言有下载授权；确认是开放许可、公有领域或用户有权取得的版本后下载，否则保存书目并使用合法替代或请用户提供文件。不得绕过付费墙、访问控制或验证码。
-
-用户自行登录浏览器，复用现有会话；不用明文账号密码文件，不读取浏览器凭据数据库，不凭空提供账号。遇到登录依赖，继续其他独立工作并记录待办。下载后核对 PDF 可打开、书名/版次/页数和哈希；HTML 登录页不当成教材 PDF。无文字层按 uss AGENTS.md 启动 pdf_ocr，并与独立研究交错。原件保存，引用指向原件，OCR 副本作为提取辅助。
-
-## 跨校对齐
-
-默认 MIT，列表可改。课程材料用 https://ocw.mit.edu/ 与院系/学校官方课程目录、培养方案；OCW 历史课程不代表现行学位要求。根据主题、先修、难度、学习成果、教材和考核找相似课程，不能只看课程名。记录课程代码、年份、官方 URL、实际支持结论的章节/页码和未匹配主题。
-
-输出课程要求与大纲，包含：南科大基线；跨校要求/内容/教材补充；个人目标建议；先修关系；教材章节到主题映射；可观察能力成果；证据与缺口。社会学、经济学和数据科学只在与当前课程/目标有关时加入，例如算法公平性、因果推断、网络和优化应用，不为覆盖所有方向强行扩课。去重内容但保留不同来源强度与相矛盾的说法。
-
-复合大纲每个主题标注层级（南科大必需/跨校补充/个人拓展）、学习目标、先修、材料位置、建议练习类型和完成状态。没有教材全文时章节映射标为待核对。完成检查课程代码/版本、精确证据、路径可用与缺口，并按通用 skill 保存进度；本 skill 不认证毕业资格。
-
-## 教材站点访问诊断
-
-工具无法读取站点时，先区分网页抓取失败、DNS/连接失败、登录限制与站点真实故障。有浏览器能力时正常打开用户指定 URL 核对可见状态；一次路径失败不等于全站停用，不自动切换到未经核实的域名。浏览器可用就使用可见搜索/已有会话；需要验证码或用户认证时交还用户操作，其他工作继续。
-
-2026-10-06 实测：网页抓取工具对 https://z-lib.sk/ 返回 Internal Error，沙箱 curl 返回 Could not resolve host，但 Codex 内置浏览器成功显示首页、搜索框和 Log In。已确认浏览器首页可访问，登录与下载未测试。具体抓取失败机制未确认，不能断言是密码、封禁或域名失效。
+教材登录由用户在正常浏览器完成，复用可用会话，不读取凭据数据库或导出 cookie/token。来源获取失败先区分抓取、DNS、登录与站点故障，有浏览器能力就正常核对，不凭一次工具失败断言全站停用。获取路径可用不证明任意教材有授权；优先开放/授权资源，保留书目和未获取原因。

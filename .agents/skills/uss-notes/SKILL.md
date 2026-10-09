@@ -5,7 +5,7 @@ description: Write and safely update source-traceable university notes, merged s
 
 # 笔记写作与安全发布
 
-先读 uss AGENTS.md、目标课程复合大纲、已核对转录与现有人工修改。单文件只做请求的笔记；整门课程生成课程入口及必要章节；查询转交 [来源索引](../uss-source-index/SKILL.md)，不重写全库。
+先读 uss AGENTS.md、目标课程复合大纲、已核对转录与现有人工修改。单文件只做请求的笔记；整门课程生成课程入口及必要章节；教材逐章 Obsidian 整理转交 [uss-textbook-notes](../uss-textbook-notes/SKILL.md)，英文全文翻译转交 [uss-textbook-translate](../uss-textbook-translate/SKILL.md)；本 skill 负责共用写作与安全发布。查询转交 [来源索引](../uss-source-index/SKILL.md)，不重写全库。
 
 写作前读 [证据规范](../uss-source-index/references/evidence_quality.md) 和 [knowledge_base.md](references/knowledge_base.md)。每个重要概念/连贯主题引用存在的原始文件精确物理页；保留术语，解释含义、成立条件、符号/单位和具体例子。程序例解释行为及预期结果，执行前审查代码。agent 推导、改编例子、外校补充与课程原文分开。
 
